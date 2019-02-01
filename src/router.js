@@ -36,10 +36,23 @@ export default new Router({
       props:true
     },
     {
+      path:'/charge',
+      name:'checkout',
+      component:Checkout,
+    },
+    {
       path:'/order',
       name:'order',
       component:Order,
-      props:true
+      props:true,
+      beforeEnter(to, from , next){
+        console.log(from.path);
+        if(from.path != '/charge'){
+          next('/')
+        }else{
+          next()
+        }
+      }
     },
     {
       path:'/order-complete/:id',
@@ -70,11 +83,6 @@ export default new Router({
       path:'/contactus',
       name:'contactUs',
       component:contactUs 
-    },
-    {
-      path:'/charge',
-      name:'checkout',
-      component:Checkout
     },
 
   ]

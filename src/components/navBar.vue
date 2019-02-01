@@ -73,7 +73,7 @@
 
 <script>
 import Api from "@/config/Api";
-import "../assets/css/navBAr.css";
+import "../assets/css/navBar.css";
 export default {
   name: "navBar",
   data() {
