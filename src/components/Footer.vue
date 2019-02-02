@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="contactUs">
-      <p>Contact Me</p>
+      <p style="font-weight:bold; font-size:25px; color:#DDDBF1">Contact Me</p>
       <div class="phoneNumber">
         <img class="icons" src="../../public/img/icons/whatsapp.svg" alt="whatsapp">
         <p>+65 8768 8832</p>
@@ -13,10 +13,11 @@
       </div>
     </div>
     <div class="findUs">
+      <p style="font-weight:bold; font-size:25px;color:#DDDBF1">Find Me</p>
       <p>
-        (By Appointment Only)
         31 Sin Ming Drive, #01-299
-        Singapore 575705
+        Singapore 575705<br>
+        <span>(By Appointment Only)</span>
       </p>
     </div>
   </div>
@@ -30,10 +31,11 @@ export default {
 
 <style>
 .footer {
-  background-color: #80ab82;
+  background-color: #383f51;
   display: flex;
   flex-direction: row;
   padding: 0 10px;
+  justify-content: space-around
 }
 
 .icons {

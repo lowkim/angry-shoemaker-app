@@ -24,6 +24,12 @@
             <strong>SGD{{totalAmt}}</strong>
           </li>
         </ul>
+
+        <ul class="list-group mb-3">
+          <h6>Delivery Dates</h6>
+          <small class="text-muted">Click to select a date</small>
+          <datepicker v-model="date" :disabledDates="disabledDates"></datepicker>
+        </ul>
       </div>
 
       <div class="col-md-8 order-md-1">
@@ -167,6 +173,7 @@
           </span>
           <span class="btn btn-primary btn-lg btn-block" v-else>Place Order</span>
         </button>
+        {{disabledDates.dates}}
       </div>
     </div>
   </div>
@@ -176,11 +183,38 @@
 import axios from "axios";
 import key from "@/config/stripeKey";
 import Api from "@/config/Api";
+import Datepicker from "vuejs-datepicker";
 
 export default {
   name: "order",
   data() {
     return {
+      //Date
+      date: "",
+      monthNames: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ],
+      disabledDates: {
+        ranges: [
+          {
+            from: new Date().setTime(new Date().getTime() - 1 * 8640000),
+            to: new Date().setTime(new Date().getTime() + 2 * 86400000)
+          }
+        ],
+        dates:[],
+      },
+
       stripeKey: key.PUBLISHABLE_KEY,
       // fields
       name: "Meme",
@@ -208,6 +242,18 @@ export default {
       cardCheckError: false,
       cardCheckErrorMessage: ""
     };
+  },
+
+  created(){
+    Api().get("/disabledDates")
+    .then(response => {
+      response.data.forEach(x => {
+        this.disabledDates.dates.push(eval(x))
+      })
+    })
+  },
+  components: {
+    Datepicker
   },
   computed: {
     cartInfo() {
