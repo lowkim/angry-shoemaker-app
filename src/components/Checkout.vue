@@ -12,7 +12,7 @@
                 <th scope="col">Product</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">SubTotat</th>
+                <th scope="col">Subtotal</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -73,6 +73,7 @@ export default {
           item.subtotal = item.price * item.qty;
           this.$store.commit("setQuantity", item);
           this.$store.commit("setPrice", item);
+          this.$store.commit("setCharge", item.subtotal)
           localStorage.setItem("cart", JSON.stringify(this.cart));
           break;
         case "min":
@@ -80,6 +81,7 @@ export default {
           item.subtotal = item.price * item.qty;
           this.$store.commit("setQuantity", item);
           this.$store.commit("setPrice", item);
+          this.$store.commit("setCharge", item.subtotal)
           localStorage.setItem("cart", JSON.stringify(this.cart));
           if (item.qty === 0) this.clearFromCart(item);
           break;

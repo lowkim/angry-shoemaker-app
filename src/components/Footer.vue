@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="foot">
     <div class="contactUs">
       <p style="font-weight:bold; font-size:25px; color:#DDDBF1">Contact Me</p>
       <div class="phoneNumber">
@@ -25,12 +25,12 @@
 
 <script>
 export default {
-  name: "footer"
+  name: "foot"
 };
 </script>
 
 <style>
-.footer {
+.foot {
   background-color: #383f51;
   display: flex;
   flex-direction: row;

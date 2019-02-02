@@ -28,7 +28,7 @@
         <ul class="list-group mb-3">
           <h6>Delivery Dates</h6>
           <small class="text-muted">Click to select a date</small>
-          <datepicker v-model="date" :disabledDates="disabledDates"></datepicker>
+          <datepicker :inline="true" v-model="date" :disabledDates="disabledDates"></datepicker>
         </ul>
       </div>
 
@@ -173,7 +173,6 @@
           </span>
           <span class="btn btn-primary btn-lg btn-block" v-else>Place Order</span>
         </button>
-        {{disabledDates.dates}}
       </div>
     </div>
   </div>
@@ -320,7 +319,8 @@ export default {
           token_from_stripe: token_from_stripe,
           cartInfo: this.$store.getters.getCart,
           phone: this.phone,
-          total: this.totalAmt
+          total: this.totalAmt,
+          orderDate: this.date
         };
         // Send to our server
         Api()

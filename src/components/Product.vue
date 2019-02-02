@@ -19,6 +19,7 @@
             transition="expand"
           >Added to the basket</div>
         </div>
+        {{product}}
       </div>
     </div>
   </div>
