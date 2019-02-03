@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
       <div class="col-md-8">
         <img :src="product.image.secure_url" :alt="product.title" class="img-fluid">
@@ -7,12 +7,11 @@
       <div class="col-md-4">
         <h5>{{ product.title }}</h5>
         <p v-html=" product.description "></p>
-        {{product}}
         <div class="checkoutDetails">
-          <p class="text-danger font-weight-bold">${{productSizes.price}}</p>
+          <p class="text-danger font-weight-bold">${{selected.price}}</p>
           <button
             class="btn btn-outline-primary mb-5"
-            @click="addToCart(product) , addToBasket()"
+            @click="addToCart(selected) , addToBasket()"
           >Add to Cart</button>
           <div
             class="alert alert-success"
@@ -20,11 +19,12 @@
             transition="expand"
           >Added to the basket</div>
         </div>
-        <select @change="alterItems()" v-model="productSizes" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-          <option v-bind:value="{price:product.price, title:product.title, id:product['_id']}" selected>{{product.title}}</option>
-          <option v-for="size in product.sizes" v-bind:value="{price:size.price, title:size.title, id:size['_id']}">{{size.title}}</option>
-        </select>
 
+        <select @change="alterItems()" v-model="selected"  class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+          <option :selected="true" >Choose Province</option>
+          <option :value="product"  >{{product.title}}</option>
+          <option :key="size['_id'] " v-for="size in product.sizes" :value="size">{{size.title}}</option>
+        </select>
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@ export default {
   mixins: [mixins],
   data() {
     return {
-      productSizes:"",
+      selected:{},
       itemQty: 1,
       basketAddSuccess: false,
       product: {},
@@ -51,11 +51,12 @@ export default {
       }
     };
   },
-  created() {
+  mounted() {
     Api()
       .get(`/product/${this.id}`)
       .then(response => {
         this.product = response.data;
+        this.selected = response.data;
       });
   },
   methods: {
@@ -67,9 +68,9 @@ export default {
       }, 1000);
     },
     alterItems(){
-      this.$set(this.product, "productPrice",this.productSizes.price);
-      this.$set(this.product, "productTitle", this.productSizes.title)
-      this.$set(this.product, "productId", this.productSizes.id)
+      this.$set(this.product, "productPrice",this.selected.price);
+      this.$set(this.product, "productTitle", this.selected.title)
+      this.$set(this.product, "productId", this.selected.id)
     }
   }
 };

@@ -16,7 +16,6 @@
                 <th scope="col">Actions</th>
               </tr>
             </thead>
-            {{cart}}
             <tbody>
               <tr v-for="item in cart" :key="item.id">
                 <td>{{ item.title }}</td>
