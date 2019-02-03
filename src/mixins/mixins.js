@@ -4,10 +4,11 @@ export default {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       if (cart.length === 0) {
         let item = {
-          id: product._id,
-          title: product.title,
-          price: product.price,
-          subtotal: product.price * 1,
+          product:product,
+          id: product.productId,
+          title: product.productTitle,
+          price: product.productPrice,
+          subtotal: product.productPrice * 1,
           qty: 1
         };
         cart.push(item);
@@ -15,7 +16,7 @@ export default {
         localStorage.setItem("cart", JSON.stringify(cart));
       } else {
         let item = cart.find(item => {
-          return item.id === product._id;
+          return item.id === product.productId;
         });
         if (item) {
           // check if is not new item
@@ -26,10 +27,10 @@ export default {
           localStorage.setItem("cart", JSON.stringify(cart));
         } else {
           let item = {
-            id: product._id,
-            title: product.title,
-            price: product.price,
-            subtotal: product.price * 1,
+            id: product.productId,
+            title: product.productTitle,
+            price: product.productPrice,
+            subtotal: product.productPrice * 1,
             qty: 1
           };
           cart.push(item);

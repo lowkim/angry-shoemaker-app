@@ -16,6 +16,7 @@
                 <th scope="col">Actions</th>
               </tr>
             </thead>
+            {{cart}}
             <tbody>
               <tr v-for="item in cart" :key="item.id">
                 <td>{{ item.title }}</td>
@@ -48,10 +49,7 @@ import key from "@/config/stripeKey";
 import mixins from "@/mixins/mixins";
 export default {
   mixins: [mixins],
-  mounted() {
-    localStorage.setItem("charge", JSON.stringify(this.total));
-    this.$store.commit("setCharge", this.total);
-  },
+  
   computed: {
     cart() {
       return this.$store.getters.getCart;
@@ -62,6 +60,8 @@ export default {
       this.cart.map(item => {
         sum += item.subtotal;
       });
+      this.$store.commit("setCharge", sum)
+      localStorage.setItem("charge", JSON.stringify(sum))
       return sum;
     }
   },
@@ -73,7 +73,6 @@ export default {
           item.subtotal = item.price * item.qty;
           this.$store.commit("setQuantity", item);
           this.$store.commit("setPrice", item);
-          this.$store.commit("setCharge", item.subtotal)
           localStorage.setItem("cart", JSON.stringify(this.cart));
           break;
         case "min":
@@ -81,7 +80,6 @@ export default {
           item.subtotal = item.price * item.qty;
           this.$store.commit("setQuantity", item);
           this.$store.commit("setPrice", item);
-          this.$store.commit("setCharge", item.subtotal)
           localStorage.setItem("cart", JSON.stringify(this.cart));
           if (item.qty === 0) this.clearFromCart(item);
           break;
@@ -94,12 +92,13 @@ export default {
     },
     clearFromCart(product) {
       let item = this.cart.find(item => {
-        return item.id === product.id;
+        return item.id === product.productId;
       });
       let index = this.cart.indexOf(item);
       this.cart.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(this.cart));
-    }
+    },
+    
   }
 };
 </script>

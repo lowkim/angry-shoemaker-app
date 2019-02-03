@@ -7,8 +7,9 @@
       <div class="col-md-4">
         <h5>{{ product.title }}</h5>
         <p v-html=" product.description "></p>
+        {{product}}
         <div class="checkoutDetails">
-          <p class="text-danger font-weight-bold">${{product.price}}</p>
+          <p class="text-danger font-weight-bold">${{productSizes.price}}</p>
           <button
             class="btn btn-outline-primary mb-5"
             @click="addToCart(product) , addToBasket()"
@@ -19,7 +20,11 @@
             transition="expand"
           >Added to the basket</div>
         </div>
-        {{product}}
+        <select @change="alterItems()" v-model="productSizes" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+          <option v-bind:value="{price:product.price, title:product.title, id:product['_id']}" selected>{{product.title}}</option>
+          <option v-for="size in product.sizes" v-bind:value="{price:size.price, title:size.title, id:size['_id']}">{{size.title}}</option>
+        </select>
+
       </div>
     </div>
   </div>
@@ -34,8 +39,9 @@ export default {
   mixins: [mixins],
   data() {
     return {
+      productSizes:"",
       itemQty: 1,
-      basketAddSuccess:false,
+      basketAddSuccess: false,
       product: {},
       //before rendering the image, set a default placeholder
       product: {
@@ -59,6 +65,11 @@ export default {
       setTimeout(function() {
         self.basketAddSuccess = false;
       }, 1000);
+    },
+    alterItems(){
+      this.$set(this.product, "productPrice",this.productSizes.price);
+      this.$set(this.product, "productTitle", this.productSizes.title)
+      this.$set(this.product, "productId", this.productSizes.id)
     }
   }
 };

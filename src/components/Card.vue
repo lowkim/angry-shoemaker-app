@@ -12,7 +12,6 @@
         class="btn btn-outline-primary mr-2"
         :to="{ name: 'product', params: { id: product._id }}"
       >Description</router-link>
-      <button class="btn btn-primary" @click="addToCart(product)">Add to Cart</button>
     </div>
   </div>
 </template>
