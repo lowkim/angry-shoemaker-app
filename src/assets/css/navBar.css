@@ -4,7 +4,10 @@
 }
 
 .navigationContent{
-    justify-content: space-around;
+    justify-content: start;
+}
+.navigationContent .cart{
+    align-self: flex-end
 }
 .dropdown a{
     color: black;
@@ -30,6 +33,12 @@
 .dropdown-submenu {
     position: relative;
 }
+
+.dropdown-submenu > .dropdown-item{
+    font-size: 25px;
+}
+
+
 
 .dropdown-submenu>.dropdown-menu {
     top: 0;

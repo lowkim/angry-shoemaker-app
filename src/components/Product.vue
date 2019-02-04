@@ -20,8 +20,7 @@
           >Added to the basket</div>
         </div>
 
-        <select @change="alterItems()" v-model="selected"  class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-          <option :selected="true" >Choose Province</option>
+        <select  v-model="selected"  class="custom-select mr-sm-2" >
           <option :value="product"  >{{product.title}}</option>
           <option :key="size['_id'] " v-for="size in product.sizes" :value="size">{{size.title}}</option>
         </select>
@@ -67,11 +66,6 @@ export default {
         self.basketAddSuccess = false;
       }, 1000);
     },
-    alterItems(){
-      this.$set(this.product, "productPrice",this.selected.price);
-      this.$set(this.product, "productTitle", this.selected.title)
-      this.$set(this.product, "productId", this.selected.id)
-    }
   }
 };
 </script>

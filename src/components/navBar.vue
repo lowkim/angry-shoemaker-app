@@ -43,6 +43,7 @@
                             tag="a"
                             :to="{name: 'category', params: {category: category, subcategory:subCategory.name}}"
                             class="nav-link"
+                            style="font-size:20px"
                           >{{subCategory.name }}</router-link>
                         </li>
                       </template>
@@ -62,7 +63,7 @@
           v-bind:key="routes.id"
           :to="`${routes.page}`"
         >{{routes.text}}</router-link>
-        <router-link tag="a" :to="{name: 'checkout'}" class="nav-link">
+        <router-link class="cart nav-link" tag="a" :to="{name: 'checkout'}" >
           Cart(
           <span class="badge badge-light">{{ cart.length }}</span>)
         </router-link>
