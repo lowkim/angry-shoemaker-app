@@ -1,23 +1,31 @@
 <template>
   <div class="supriseme">
     <div class="container">
-        <h3>Select an item to add to cart and only one item will be added</h3>
-      <div v-for="(prod) in suprisemeProd" :key="prod['_id']">
+      <h3>Select an item to add to cart</h3>
+      <div class="items" v-for="(prod) in suprisemeProd" :key="prod['_id']">
         <img :src="prod.image.secure_url" alt>
-        <h3>{{prod.title}}</h3>
-        <p v-html="prod.description"></p>
+        <div class="desc">
+          <h3>{{prod.title}}</h3>
+          <p v-html="prod.description"></p>
 
-        <select @click="alterItem">
-          <option value="nothing">---Please Select a Item---</option>
-          <option v-bind:value="JSON.stringify(prod)">{{prod.title}}</option>
-          <option
-            :key="size['_id']"
-            :value="JSON.stringify(size)"
-            v-for="size in prod.size"
-          >{{size.title}}</option>
-        </select>
+          <select @click="alterItem">
+            <option value="nothing">Yes! This is the one</option>
+            <option v-bind:value="JSON.stringify(prod)">{{prod.title}}</option>
+            <option
+              :key="size['_id']"
+              :value="JSON.stringify(size)"
+              v-for="size in prod.size"
+            >{{size.title}}</option>
+          </select>
+        </div>
       </div>
-      <button :disabled="selectedOption == '' " class="btn btn-outline-primary mb-5" @click="addToCart(selectedOption)">Add to Cart</button>
+      <div class="checkout">
+        <button
+          :disabled="selectedOption == '' "
+          class="btn btn-success mb-5"
+          @click="addToCart(selectedOption)"
+        >Add to Cart</button>
+      </div>
     </div>
   </div>
 </template>
@@ -30,7 +38,7 @@ export default {
   mixins: [mixins],
   data() {
     return {
-      selectedOption: '',
+      selectedOption: "",
       suprisemeProd: [],
       ids: [],
       trial: {},
@@ -50,16 +58,44 @@ export default {
   },
   methods: {
     alterItem(e) {
-        console.log(e.target.value)
-        if(e.target.value == 'nothing'){
-            this.selectedOption = '';
-        }else{
-            this.selectedOption = JSON.parse(e.target.value);
-        }
+      if (e.target.value == "nothing") {
+        this.selectedOption = "";
+      } else {
+        this.selectedOption = JSON.parse(e.target.value);
+      }
     }
   }
 };
 </script>
 
 <style>
+.items {
+  display: flex;
+}
+
+.desc {
+  margin-left: 10px;
+}
+
+.items > img {
+  margin-top: 10px;
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: scale-down;
+}
+
+.checkout {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.items option,select{
+    font-family: 'Gabriola';
+    font-size: 20px;
+}
+
+.items select{
+    height:30px;
+}
 </style>

@@ -31,14 +31,14 @@
           >Shop</a>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li class="dropdown-submenu" v-for="category in Object.keys(categories)">
+            <li class="dropdown-submenu" :key="category['_id']" v-for="category in Object.keys(categories)">
               <a class="dropdown-item" href="#">{{category}}</a>
               <ul class="dropdown-menu">
                 <li class="dropdown-submenu">
                   <template v-for="cat in categories">
                     <template v-for="subCategory in cat">
                       <template v-if="subCategory.category == category">
-                        <li class="dropdown-item">
+                        <li class="dropdown-item" :key="subCategory['_id']">
                           <router-link
                             tag="a"
                             :to="{name: 'category', params: {category: category, subcategory:subCategory.name}}"

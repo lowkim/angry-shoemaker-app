@@ -4,8 +4,8 @@
         <img class="card-img-top" :src="product.image.secure_url" :alt="product.title">
       </router-link>
     <div class="card-body">
-      <h5 class="card-title text-info">{{ product.title }}</h5>
-      <p class="card-text text-danger">${{ product.price }}</p>
+      <h3 class="card-title">{{ product.title }}</h3>
+      <p class="card-text">${{ product.price }}</p>
     </div>
   </div>
 </template>
@@ -21,11 +21,16 @@ export default {
 <style>
 .card-img-top{
   width:100%;
-  height: 15vw;
+  height:40vh;
   object-fit: cover;
 }
 
 .card-body{
   text-align: center;
+}
+
+.card-body p{
+  font-size: 1.5rem;
+  color: black;
 }
 </style>

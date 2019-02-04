@@ -5,25 +5,26 @@
         <img :src="product.image.secure_url" :alt="product.title" class="img-fluid">
       </div>
       <div class="col-md-4">
-        <h5>{{ product.title }}</h5>
-        <p v-html=" product.description "></p>
-        <div class="checkoutDetails">
-          <p class="text-danger font-weight-bold">${{selected.price}}</p>
-          <button
-            class="btn btn-outline-primary mb-5"
-            @click="addToCart(selected) , addToBasket()"
-          >Add to Cart</button>
-          <div
-            class="alert alert-success"
-            v-if="basketAddSuccess"
-            transition="expand"
-          >Added to the basket</div>
+        <h1>{{ product.title }}</h1>
+
+        <div class="prodDetails">
+          <p>${{selected.price}}</p>
+          <p v-html=" product.description "></p>
         </div>
 
-        <select  v-model="selected"  class="custom-select mr-sm-2" >
-          <option :value="product"  >{{product.title}}</option>
-          <option :key="size['_id'] " v-for="size in product.sizes" :value="size">{{size.title}}</option>
-        </select>
+        <div class="prodCheckout">
+          <select v-model="selected" class="custom-select mr-sm-2">
+            <option :value="product">{{product.title}}</option>
+            <option :key="size['_id'] " v-for="size in product.sizes" :value="size">{{size.title}}</option>
+          </select>
+          <button
+            class="btn btn-primary mb-5"
+            @click="addToCart(selected) , addToBasket()"
+            v-if="!basketAddSuccess"
+          >Add to Cart</button>
+          <button class="btn btn-success mb-5" v-else>Added</button>
+          
+        </div>
       </div>
     </div>
   </div>
@@ -38,7 +39,7 @@ export default {
   mixins: [mixins],
   data() {
     return {
-      selected:{},
+      selected: {},
       itemQty: 1,
       basketAddSuccess: false,
       product: {},
@@ -65,14 +66,22 @@ export default {
       setTimeout(function() {
         self.basketAddSuccess = false;
       }, 1000);
-    },
+    }
   }
 };
 </script>
 
 <style>
-.checkoutDetails {
+.prodCheckout {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.prodCheckout > button{
+  margin-top: 20px;
+}
+
+.prodDetails > p {
+  font-size: 1.5rem;
 }
 </style>
