@@ -1,52 +1,78 @@
 <template>
   <div class="container">
-    <form>
-      <div class="row">
-        <div class="col-md-4 order-md-2 mb-4">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Your cart</span>
-            <span class="badge badge-secondary badge-pill"></span>
-          </h4>
-          <ul class="list-group mb-3">
-            <li
-              class="list-group-item d-flex justify-content-between lh-condensed"
-              v-for="cart in cartInfo"
-              :key="cart[`cart_id`]"
-            >
-              <div>
-                <h6 class="my-0">{{cart.title}}</h6>
-                <small class="text-muted">Qty: {{cart.qty}}</small>
-              </div>
-              <span class="text-muted">${{cart.subtotal}}</span>
-            </li>
+    <div class="row">
+      <div class="col-md-4 order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Your cart</span>
+          <span class="badge badge-secondary badge-pill"></span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li
+            class="list-group-item d-flex justify-content-between lh-condensed"
+            v-for="cart in cartInfo"
+            :key="cart[`cart_id`]"
+          >
+            <div>
+              <h6 class="my-0">{{cart.title}}</h6>
+              <small class="text-muted">Qty: {{cart.qty}}</small>
+            </div>
+            <span class="text-muted">${{cart.subtotal}}</span>
+          </li>
 
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total (SGD)</span>
-              <strong>SGD{{totalAmt}}</strong>
-            </li>
-          </ul>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total (SGD)</span>
+            <strong>SGD{{totalAmt}}</strong>
+          </li>
+        </ul>
 
-          <ul class="list-group mb-3">
-            <h6>Delivery Dates</h6>
-            <small class="text-muted">Click to select a date</small>
-            <datepicker :inline="true" v-model="date" :disabledDates="disabledDates"></datepicker>
-          </ul>
-          <ul class="list-group mb-3">
-            <h6>Delivery Time</h6>
-            <small class="text-muted">Click to select a date</small>
-            <template v-for="delivery in deliveryTime">
-              <input type="radio" :key="delivery.value" v-model="deliveryPrice" :value="{price:delivery.price, value:delivery.value}">{{delivery.time}}
+        <ul class="list-group mb-3">
+          <h6>Delivery Dates</h6>
+          <small class="text-muted">Click to select a date</small>
+          <datepicker :inline="true" v-model="date" :disabledDates="disabledDates"></datepicker>
+        </ul>
+        <ul class="list-group mb-3">
+          <h6>Delivery Time</h6>
+          <small class="text-muted">Click to select a time</small>
+          <template v-if="totalAmt < 60 || totalAmt - deliveryPrice.price < 60">
+            <template v-for="DT in deliveryTime">
+              <input
+                type="radio"
+                v-model="deliveryPrice"
+                :key="DT.value"
+                :value="{price:DT.price, value:DT.value}"
+                required
+              >
+              {{DT.time}}
             </template>
-          </ul>
-        </div>
+          </template>
+          <template v-else>
+            <input
+              type="radio"
+              v-model="deliveryPrice"
+              @change="freeToggle"
+              :value="{price:0, value:5, time:'You qualify for free delivery'}"
+              :key="deliveryPrice.value"
+            >
+            {{deliveryPrice.time}}
+          </template>
+        </ul>
+      </div>
 
-        <div class="col-md-8 order-md-1">
-          <h4 class="mb-3">Billing address</h4>
+      <div class="col-md-8 order-md-1">
+        <h4 class="mb-3">Billing address</h4>
+        <form class="needs-validation was-validated" novalidate>
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="name">Name</label>
-              <input type="text" id="name" class="form-control" v-model="name" required>
-              <div class="valid-feedback">Valid name is required.</div>
+              <input
+                type="text"
+                id="name"
+                class="form-control"
+                v-model="name"
+                required
+                :class="['is-danger'? emptyError: '', 'input']"
+              >
+              <div class="invalid-feedback">Valid name is required.</div>
             </div>
 
             <div class="col-md-6 mb-3">
@@ -56,11 +82,12 @@
                 id="phoneNum"
                 class="form-control"
                 v-model="phone"
+                :class="['is-danger'? emptyError: '', 'input']"
                 placeholder
                 value
                 required
               >
-              <div class="invalid-feedback">Valid first name is required.</div>
+              <div class="invalid-feedback">Valid phone number required</div>
             </div>
           </div>
 
@@ -69,9 +96,11 @@
             <input
               type="email"
               class="form-control"
+              :class="['is-danger'? emptyError: '', 'input']"
               v-model="email"
               id="email"
               placeholder="you@example.com"
+              required
             >
             <div class="invalid-feedback">Please enter a valid email address</div>
           </div>
@@ -81,6 +110,7 @@
             <input
               type="text"
               class="form-control"
+              :class="['is-danger'? emptyError: '', 'input']"
               v-model="address.street"
               id="address"
               placeholder="1234 Main St"
@@ -93,8 +123,10 @@
             <div class="col-md-3 mb-3">
               <label for="postalCode">Postal Code</label>
               <input
+                maxlength="6"
                 type="text"
                 class="form-control"
+                :class="['is-danger'? emptyError: '', 'input']"
                 v-model="address.postalCode"
                 id="postalCode"
                 placeholder
@@ -108,6 +140,7 @@
               <input
                 type="text"
                 class="form-control"
+                :class="['is-danger'? emptyError: '', 'input']"
                 v-model="address.unitNum"
                 id="unitNum"
                 placeholder
@@ -122,6 +155,7 @@
             <div class="col-md-6 mb-3">
               <label for="cc-number">Credit card number</label>
               <input
+                maxlength="16"
                 type="text"
                 v-model="card.number"
                 :class="['is-danger' ? cardNumberError : '', 'input']"
@@ -138,34 +172,73 @@
             <div class="col-md-3 mb-3">
               <label for="exp_month">Expiry Month</label>
               <input
+                maxlength="2"
                 id="exp_month"
                 v-model="card.exp_month"
                 type="text"
                 :class="['is-danger' ? cardMonthError : '', 'input']"
                 placeholder="MM"
                 class="form-control"
+                required
               >
               <span style="color:red" v-show="cardMonthError">{{ cardMonthError }}</span>
             </div>
             <div class="col-md-3 mb-3">
               <label for="exp_month">Expiry Year</label>
               <input
+                maxlength="4"
                 id="exp_year"
                 v-model="card.exp_year"
                 type="text"
                 :class="['is-danger' ? cardYearError : '', 'input']"
                 placeholder="YY"
                 class="form-control"
+                required
               >
               <span style="color:red" v-show="cardYearError">{{ cardYearError }}</span>
             </div>
 
             <div class="col-md-3 mb-3">
               <label for="cvc">CVC</label>
-              <input id="cvc" v-model="card.cvc" type="text" class="form-control" placeholder="123">
+              <input
+                id="cvc"
+                maxlength="3"
+                v-model="card.cvc"
+                type="text"
+                class="form-control"
+                placeholder="123"
+                required
+              >
               <span style="color:red" v-show="cardCvcError">{{ cardCvcError }}</span>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <h4>Delivery date and time</h4>
+              <p>Date:
+                <template v-if="date != ''">
+                  {{`${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`}}
+                  <br>
+                </template>
+              </p>
+
+              <p>Time:
+                <template v-for="DT in deliveryTime">
+                  <template v-if="DT.value == deliveryPrice.value && DT.value != 6">{{DT.time}}</template>
+                </template>
+                <template v-if="deliveryPrice.value == 6">
+                  <p>
+                    <br>Self-Collection Address:
+                    <br>31 Sin Ming Drive #01-299
+                    <br>Singapore 575705
+                  </p>
+                </template>
+              </p>
+              <div v-show="free">{{deliveryPrice.time}}</div>
+            </div>
+          </div>
+
           <div v-if="cardCheckError">
             <span style="color:red">{{ cardCheckErrorMessage }}</span>
           </div>
@@ -174,18 +247,17 @@
             type="submit"
             class="btn btn-primary btn-lg btn-block"
             @click.prevent="validate"
-            :disabled="cardCheckSending"
+            :disabled="cardCheckSending || date==''"
           >
-            <!-- Find a way to prevent double order -->
             <span v-if="cardCheckSending">
               <i class="fa fa-btn fa-spinner fa-spin"></i>
               Ordering...
             </span>
             <span class="btn btn-primary btn-lg btn-block" v-else>Place Order</span>
           </button>
-        </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -215,15 +287,21 @@ export default {
         "November",
         "December"
       ],
-      deliveryTime:[
-        {time:"Office Elf (10am – 6pm) $8", price:8, value:1},
-        {time:"Hi-Tea Elf (2pm-7pm) $8", price:8, value:2},
-        {time:"Dinner Elf (5pm – 10pm $8", price:8, value:3},
-        {time:"Nocturnal Elf (10pm – 1am) $20", price:20, value:4},
+      deliveryTime: [
+        { time: "Office Elf (10am – 6pm) $8", price: 8, value: 1 },
+        { time: "Hi-Tea Elf (2pm-7pm) $8", price: 8, value: 2 },
+        { time: "Dinner Elf (5pm – 10pm) $8", price: 8, value: 3 },
+        { time: "Nocturnal Elf (10pm – 1am) $20", price: 20, value: 4 },
+        { time: "Self-pickup", price: 0, value: 6 }
       ],
-      deliveryPrice:{value:'1', price:8},
+      deliveryPrice: {
+        time: "You qualify for free delivery!",
+        value: 5,
+        price: 0
+      },
+      free: false,
       disabledDates: {
-        to:new Date(),
+        to: new Date(),
         ranges: [
           {
             from: new Date().setTime(new Date().getTime() - 1 * 8640000),
@@ -259,7 +337,7 @@ export default {
       cardCheckSending: false,
       cardCheckError: false,
       cardCheckErrorMessage: "",
-      
+      emptyError: null
     };
   },
 
@@ -280,10 +358,13 @@ export default {
       return this.$store.getters.getCart;
     },
     totalAmt() {
-      return this.$store.getters.getCharge + this.deliveryPrice.price
+      return this.$store.getters.getCharge + this.deliveryPrice.price;
     }
   },
   methods: {
+    freeToggle() {
+      this.free = true;
+    },
     validate() {
       this.clearCardErrors();
       let valid = true;
@@ -302,6 +383,21 @@ export default {
       if (!this.card.exp_year) {
         valid = false;
         this.cardYearError = "Year is Required";
+      }
+      if (!this.name) {
+        valid = false;
+      }
+      if (!this.phone) {
+        valid = false;
+      }
+      if (!this.email) {
+        valid = false;
+      }
+      if (!this.address.street) {
+        valid = false;
+      }
+      if (!this.address.unitNum) {
+        valid = false;
       }
       if (valid) {
         this.createToken();

@@ -19,12 +19,24 @@
           </select>
         </div>
       </div>
-      <div class="checkout">
-        <button
-          :disabled="selectedOption == '' "
-          class="btn btn-success mb-5"
-          @click="addToCart(selectedOption)"
-        >Add to Cart</button>
+
+      <div class="checkoutDetails">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Item Summary</h5>
+            <p>- {{selectedOption.title}} ${{selectedOption.price}}</p>
+            <p>Type your quantity</p>
+            <small>The limit is 10</small>
+            <input :value="quantity" @input="quantity = $event.target.value" type="number">
+            <button
+              :disabled="selectedOption == '' || quantity > 10"
+              class="btn btn-success mb-5 mt-2"
+              v-if="!basketAddSuccess"
+              @click="addToCart(selectedOption,quantity), clearItems()"
+            >Add to Cart</button>
+            <button class="btn btn-success mb-5 mt-2" v-else>Added</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -39,11 +51,10 @@ export default {
   data() {
     return {
       selectedOption: "",
+      quantity: 1,
       suprisemeProd: [],
-      ids: [],
-      trial: {},
-      selected: {},
-      meme: {}
+      basketAddSuccess:false,
+      selected: {}
     };
   },
   created() {
@@ -63,6 +74,17 @@ export default {
       } else {
         this.selectedOption = JSON.parse(e.target.value);
       }
+    },
+    clearItems() {
+      this.quantity = 1;
+      this.selectedOption.title = "";
+      this.selectedOption.price = "";
+      this.selectedOption = ""
+      this.basketAddSuccess = true;
+      let self = this;
+      setTimeout(function() {
+        self.basketAddSuccess = false;
+      }, 1000);
     }
   }
 };
@@ -75,6 +97,7 @@ export default {
 
 .desc {
   margin-left: 10px;
+  flex-wrap: wrap;
 }
 
 .items > img {
@@ -86,16 +109,21 @@ export default {
   object-fit: scale-down;
 }
 
-.checkout {
-    display: flex;
-    flex-direction: row-reverse;
-}
-.items option,select{
-    font-family: 'Gabriola';
-    font-size: 20px;
+.checkoutDetails {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
-.items select{
-    height:30px;
+.checkoutDetails > .card-body{
+  font-size: 10px;
+}
+.items option,
+select {
+  font-family: "Gabriola";
+  font-size: 20px;
+}
+
+.items select {
+  height: 30px;
 }
 </style>

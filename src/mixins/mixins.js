@@ -1,14 +1,14 @@
 export default {
   methods: {
-    addToCart(product) {
+    addToCart(product, itemQty) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       if (cart.length === 0) {
         let item = {
           id: product["_id"],
           title: product.title,
           price: product.price,
-          subtotal: product.price * 1,
-          qty: 1
+          subtotal: product.price * itemQty,
+          qty: itemQty
         };
         cart.push(item);
         this.$store.commit("setCart", item);
@@ -19,7 +19,7 @@ export default {
         });
         if (item) {
           // check if is not new item
-          item.qty++;
+          item.qty = +item.qty + +itemQty
           item.subtotal = item.price * item.qty;
           this.$store.commit("setQuantity", item);
           this.$store.commit("setPrice", item);
@@ -29,8 +29,8 @@ export default {
             id: product["_id"],
             title: product.title,
             price: product.price,
-            subtotal: product.price * 1,
-            qty: 1
+            subtotal: product.price * itemQty,
+            qty: itemQty
           };
           cart.push(item);
           this.$store.commit("setCart", item);

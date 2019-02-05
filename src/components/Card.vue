@@ -3,7 +3,7 @@
       <router-link tag="a" :to="{name: 'product', params: {id: product._id}}">
         <img class="card-img-top" :src="product.image.secure_url" :alt="product.title">
       </router-link>
-    <div class="card-body">
+    <div class="card-body cardbod">
       <h3 class="card-title">{{ product.title }}</h3>
       <p class="card-text">${{ product.price }}</p>
     </div>
@@ -25,11 +25,11 @@ export default {
   object-fit: cover;
 }
 
-.card-body{
+.cardbod{
   text-align: center;
 }
 
-.card-body p{
+.cardbod p{
   font-size: 1.5rem;
   color: black;
 }

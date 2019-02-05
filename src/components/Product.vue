@@ -17,13 +17,15 @@
             <option :value="product">{{product.title}}</option>
             <option :key="size['_id'] " v-for="size in product.sizes" :value="size">{{size.title}}</option>
           </select>
+          <small class="mt-4">The limit is 10</small>
+          <input v-model="quantity" type="number">
           <button
             class="btn btn-primary mb-5"
-            @click="addToCart(selected) , addToBasket()"
+            @click="addToCart(selected, quantity) , addToBasket()"
+            :disabled="quantity > 10"
             v-if="!basketAddSuccess"
           >Add to Cart</button>
           <button class="btn btn-success mb-5" v-else>Added</button>
-          
         </div>
       </div>
     </div>
@@ -40,7 +42,7 @@ export default {
   data() {
     return {
       selected: {},
-      itemQty: 1,
+      quantity:1,
       basketAddSuccess: false,
       product: {},
       //before rendering the image, set a default placeholder

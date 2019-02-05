@@ -4,7 +4,7 @@
     <h3 style="color: white;">Order complete!</h3>
 
     <p>Congratulations! Your order for Sticks will be shipped out within 1-2 business days.
-      <a href>support@stickly.com</a>. We sent you a confirmation email for your records. Thanks so much!
+      <a href>{{orderDetails.receipt_email}}</a>. We sent you a confirmation email for your records. Thanks so much!
     </p>
 
     <div v-if="orderDetails">

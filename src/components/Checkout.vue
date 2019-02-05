@@ -37,6 +37,7 @@
             class="btn btn-outline-primary"
           >Checkout</router-link>
         </div>
+
       </div>
     </div>
   </div>
@@ -62,7 +63,9 @@ export default {
       this.$store.commit("setCharge", sum)
       localStorage.setItem("charge", JSON.stringify(sum))
       return sum;
-    }
+    },
+
+  
   },
   methods: {
     action(event, item) {

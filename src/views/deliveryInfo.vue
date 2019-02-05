@@ -20,16 +20,14 @@
           <br>Payment to be done and confirmed before 3pm
         </li>
         <li>Dinner Elf (5pm – 10pm) : $8
-          <br>
-
-          Payment to be done and confirmed before 6pm
+          <br>Payment to be done and confirmed before 6pm
         </li>
 
         <li>Nocturnal Elf (10pm – 1am) : $20
-          <br>
-
-          Payment to be done and confirmed before 6pm
-        </li>For purchases above $60, you are entitled to free delivery between 11am – 7pm.
+          <br>Payment to be done and confirmed before 6pm
+        </li>
+        
+        <li>For purchases above $60, you are entitled to free delivery between 11am – 7pm.</li>
       </ul>
 
       <h5>An additional charge of $10 will be imposed if the following occurs that requires re-delivery:</h5>
