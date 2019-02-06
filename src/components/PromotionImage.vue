@@ -1,7 +1,7 @@
 <template>
   <div>
     <Slider animation="fade" :duration="5000" :speed="1000" style="min-height:300px" :height="'800px'">
-        <SliderItem v-for="image in Images" :key="image['_id']">
+        <SliderItem v-for="image in Images" :key="image['_id']" class="d-flex justify-content-start align-items-center">
             <img class="img-fluid" :src="image.image.secure_url">
             <!-- <img style="max-width:100%; height:auto;" :src="image.image.secure_url"> -->
         </SliderItem>

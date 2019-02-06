@@ -16,6 +16,10 @@
         <dd>{{ orderDetails.created }}</dd>
         <dt>Payment Amount</dt>
         <dd>{{ orderDetails.amount | currency }}</dd>
+        <dt>Items Bought</dt>
+        <dd style="white-space: pre-wrap" >{{orderDetails.metadata['order_Items']}}</dd>
+        <dt>Time Chosen</dt>
+        <dd>{{orderDetails.metadata.time}}</dd>
         <dt>Shipping Address</dt>
         <dd>
           {{ orderDetails.shipping.address.line1 }} <br>

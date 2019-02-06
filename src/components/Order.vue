@@ -39,7 +39,7 @@
                 type="radio"
                 v-model="deliveryPrice"
                 :key="DT.value"
-                :value="{price:DT.price, value:DT.value}"
+                :value="{price:DT.price, value:DT.value, time:DT.time}"
                 required
               >
               {{DT.time}}
@@ -437,8 +437,10 @@ export default {
           cartInfo: this.$store.getters.getCart,
           phone: this.phone,
           total: this.totalAmt,
-          orderDate: this.date
+          orderDate: this.date,
+          orderTime:this.deliveryPrice.time
         };
+        console.log(this.deliveryPrice)
         // Send to our server
         Api()
           .post(`/charge`, request)
