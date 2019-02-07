@@ -9,7 +9,6 @@
 
     <div v-if="orderDetails">
       <dl>
-        <!-- {{orderDetails}} -->
         <dt>Order Number</dt>
         <dd>{{ orderDetails.id }}</dd>
         <dt>Order Created</dt>
