@@ -1,7 +1,6 @@
 <template>
   <div class="faq">
     <div class="container">
-      <p>Here are some FAQs</p>
       <h3>What are the charges like for delivery?</h3>Delivery schedules of our Elves are as follow:
       <ul>
         <li>Office Elf (10am – 6pm) : $8

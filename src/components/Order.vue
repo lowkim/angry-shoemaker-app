@@ -33,11 +33,11 @@
         <ul class="list-group mb-3">
           <h6>Delivery Time</h6>
           <small class="text-muted">Click to select a time</small>
-          <template v-if="totalAmt < 60 || totalAmt - deliveryPrice.price < 60">
-            <template v-for="DT in deliveryTime">
+          <template v-if="totalAmt - selected.price < 60 ">
+            <template v-for="DT in deliveryTimeNotSix" >
               <input
                 type="radio"
-                v-model="deliveryPrice"
+                v-model="selected"
                 :key="DT.value"
                 :value="{price:DT.price, value:DT.value, time:DT.time}"
                 required
@@ -45,16 +45,19 @@
               {{DT.time}}
             </template>
           </template>
+
           <template v-else>
             <input
               type="radio"
-              v-model="deliveryPrice"
-              @change="freeToggle"
-              :value="{price:0, value:5, time:'You qualify for free delivery'}"
-              :key="deliveryPrice.value"
+              v-model="selected"
+              :value="{price:0, value:6, time:'You qualify for free delivery!'}"
+              :key="selected.value"
             >
-            {{deliveryPrice.time}}
+            {{selected.time}}
           </template>
+
+          
+
         </ul>
       </div>
 
@@ -224,18 +227,20 @@
               </p>
 
               <p>Time:
-                <template v-for="DT in deliveryTime">
-                  <template v-if="DT.value == deliveryPrice.value && DT.value != 6">{{DT.time}}</template>
+                <template v-for="DT in deliveryTimeNotSix">
+                  <template v-if="DT.value == selected.value">{{DT.time}}</template>
                 </template>
-                <template v-if="deliveryPrice.value == 6">
+                <template v-if="selected.value == 5">
                   <p>
                     <br>Self-Collection Address:
                     <br>31 Sin Ming Drive #01-299
                     <br>Singapore 575705
                   </p>
                 </template>
+                <template v-if="selected.value == 6">
+                  {{selected.time}}
+                </template>
               </p>
-              <div v-show="free">{{deliveryPrice.time}}</div>
             </div>
           </div>
 
@@ -292,14 +297,10 @@ export default {
         { time: "Hi-Tea Elf (2pm-7pm) $8", price: 8, value: 2 },
         { time: "Dinner Elf (5pm – 10pm) $8", price: 8, value: 3 },
         { time: "Nocturnal Elf (10pm – 1am) $20", price: 20, value: 4 },
-        { time: "Self-pickup", price: 0, value: 6 }
+        { time: "Self-pickup", price: 0, value: 5 },
+        {time:"You qualify for free delivery!", price:0, value:6}
       ],
-      deliveryPrice: {
-        time: "You qualify for free delivery!",
-        value: 5,
-        price: 0
-      },
-      free: false,
+      selected: { time: "Office Elf (10am – 6pm) $8", price: 8, value: 1 },
       disabledDates: {
         to: new Date(),
         ranges: [
@@ -349,6 +350,10 @@ export default {
           this.disabledDates.dates.push(eval(x));
         });
       });
+
+      if(this.totalAmt > 60){
+        this.selected = {time:"You qualify for free delivery!", price:0, value:6}
+      }
   },
   components: {
     Datepicker
@@ -358,13 +363,15 @@ export default {
       return this.$store.getters.getCart;
     },
     totalAmt() {
-      return this.$store.getters.getCharge + this.deliveryPrice.price;
+      return this.$store.getters.getCharge + this.selected.price
+    },
+    deliveryTimeNotSix(){
+     return this.deliveryTime.filter(x => {
+       return x.value!=6
+     }) 
     }
   },
   methods: {
-    freeToggle() {
-      this.free = true;
-    },
     validate() {
       this.clearCardErrors();
       let valid = true;
@@ -438,7 +445,7 @@ export default {
           phone: this.phone,
           total: this.totalAmt,
           orderDate: this.date,
-          orderTime:this.deliveryPrice.time
+          orderTime:this.selected.time
         };
         console.log(this.deliveryPrice)
         // Send to our server

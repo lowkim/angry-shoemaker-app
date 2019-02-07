@@ -23,9 +23,9 @@
                 <td>{{ item.qty}}</td>
                 <td>${{ item.subtotal }}</td>
                 <td>
-                  <button class="btn btn-sm btn-info mr-1" @click="action('min',item)">-</button>
+                  <button class="btn btn-sm btn-outline-info mr-1" @click="action('min',item)">-</button>
                   <button class="btn btn-sm btn-danger mr-1" @click="action('clear',item)">Clear</button>
-                  <button class="btn btn-sm btn-info mr-1" @click="action('add',item)">+</button>
+                  <button class="btn btn-sm btn-outline-info mr-1" @click="action('add',item)">+</button>
                 </td>
               </tr>
             </tbody>

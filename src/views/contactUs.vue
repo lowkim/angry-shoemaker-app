@@ -1,7 +1,7 @@
 <template>
   <div class="contactUs">
     <div class="container">
-      <form>
+      <form action="https://formspree.io/lowkim50@gmail.com" method="POST">
           <h1>Contact Us</h1>
         <div class="form-row">
           <div class="col-md-4 mb-3">
@@ -10,6 +10,7 @@
               type="text"
               class="form-control"
               id="name"
+              name="name"
               placeholder="Name"
               required
             >
@@ -18,9 +19,11 @@
             <label for="phoneNum">Phone Number</label>
             <input
               type="text"
+              maxlength="8"
               class="form-control "
               id="phoneNum"
-              placeholder="Phone Number"
+              name="phoneNum"
+              placeholder="+65 XXXX XXXX"
               required
             >
           </div>
@@ -31,6 +34,7 @@
             <input
               type="email"
               class="form-control"
+              name="email"
               id="email"
               placeholder="Email"
               required
@@ -44,6 +48,7 @@
           style="height:100%;"
             class="form-control"
             id="msg"
+            name="msg"
             placeholder="Type your message here."
             required
           ></textarea>

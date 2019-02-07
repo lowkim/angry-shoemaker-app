@@ -1,11 +1,20 @@
 <template>
-  <div>
-    <Slider animation="fade" :duration="5000" :speed="1000" style="min-height:300px" :height="'800px'">
-        <SliderItem v-for="image in Images" :key="image['_id']" class="d-flex justify-content-start align-items-center">
-            <img class="img-fluid" :src="image.image.secure_url">
-            <!-- <img style="max-width:100%; height:auto;" :src="image.image.secure_url"> -->
-        </SliderItem>
-    </Slider>
+  <div class="container">
+    <div
+      id="carouselExampleIndicators"
+      class="carousel slide span12"
+      data-ride="carousel"
+      data-interval="2000"
+    >
+      <ol class="carousel-indicators">
+        <li v-for="(image,index) in Images" :key="index" :class="{active:index==0}" data-target="#carouselExampleIndicators" :data-slide-to="index" ></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item" :key="index" v-for="(image, index) in Images" :class="{active:index==0}">
+          <img class="d-block img-fluid" :src="image.image.secure_url">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -16,7 +25,7 @@ export default {
   name: "promotionImage",
   data() {
     return {
-      Images: {},
+      Images: {}
     };
   },
   created() {
@@ -29,15 +38,9 @@ export default {
   components: {
     Slider,
     SliderItem
-  },
-  
+  }
 };
 </script>
 
 <style>
-.promotionImage {
-  text-align: center;
-}
-
-
 </style>

@@ -30,7 +30,7 @@
             <input :value="quantity" @input="quantity = $event.target.value" type="number">
             <button
               :disabled="selectedOption == '' || quantity > 10"
-              class="btn btn-success mb-5 mt-2"
+              class="btn btn-outline-primary mb-5 mt-2"
               v-if="!basketAddSuccess"
               @click="addToCart(selectedOption,quantity), clearItems()"
             >Add to Cart</button>
@@ -58,6 +58,7 @@ export default {
     };
   },
   created() {
+    
     Api()
       .get("/supriseme")
       .then(response => {
@@ -86,7 +87,8 @@ export default {
         self.basketAddSuccess = false;
       }, 1000);
     }
-  }
+  },
+  
 };
 </script>
 

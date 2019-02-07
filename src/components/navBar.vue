@@ -1,74 +1,79 @@
 <template>
   <div class="navBar">
-    <nav class="navbar-expand-lg">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon">meme</span>
-      </button>
+    <div class="container mb-0">
+      <nav class="navbar-expand-lg">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon">meme</span>
+        </button>
+        
+        <div class="collapse navbar-collapse navigationContent" id="navbarSupportedContent">
+          <router-link tag="a" :to="{name:'home'}" class="navbar-brand">
+            <img src="../../public/img/icons/FinalLogo.png" class="icon" alt="HappyElves">
+          </router-link>
+          <div class="dropdown">
+            <a
+              class="btn dropdown-toggle"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >Shop</a>
 
-      <div
-        class="collapse navbar-collapse navigationContent"
-        id="navbarSupportedContent">
-        <router-link tag="a" :to="{name:'home'}" class="navbar-brand">
-          <img src="../../public/img/icons/FinalLogo.png" class="icon" alt="HappyElves">
-        </router-link>
-        <div class="dropdown">
-          <a
-            class="btn dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >Shop</a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li class="dropdown-submenu" :key="category['_id']" v-for="category in Object.keys(categories)">
-              <a class="dropdown-item" href="#">{{category}}</a>
-              <ul class="dropdown-menu">
-                <li class="dropdown-submenu">
-                  <template v-for="cat in categories">
-                    <template v-for="subCategory in cat">
-                      <template v-if="subCategory.category == category">
-                        <li class="dropdown-item" :key="subCategory['_id']">
-                          <router-link
-                            tag="a"
-                            :to="{name: 'category', params: {category: category, subcategory:subCategory.name}}"
-                            class="nav-link"
-                            style="font-size:20px"
-                          >{{subCategory.name }}</router-link>
-                        </li>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li
+                class="dropdown-submenu"
+                :key="category['_id']"
+                v-for="category in Object.keys(categories)"
+              >
+                <a class="dropdown-item" href="#">{{category}}</a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-submenu">
+                    <template v-for="cat in categories">
+                      <template v-for="subCategory in cat">
+                        <template v-if="subCategory.category == category">
+                          <li class="dropdown-item" :key="subCategory['_id']">
+                            <router-link
+                              tag="a"
+                              @click.native="closeMenu()"
+                              :to="{name: 'category', params: {category: category, subcategory:subCategory.name}}"
+                              class="nav-link"
+                              style="font-size:20px"
+                            >{{subCategory.name }}</router-link>
+                          </li>
+                        </template>
                       </template>
                     </template>
-                  </template>
-                </li>
-              </ul>
-            </li>
+                  </li>
+                </ul>
+              </li>
+            </div>
           </div>
-          
-        </div>
 
-        <router-link
-          class="nav-link"
-          tag="a"
-          v-for="routes in links"
-          v-bind:key="routes.id"
-          :to="`${routes.page}`"
-        >{{routes.text}}</router-link>
-        <router-link class="cart nav-link" tag="a" :to="{name: 'checkout'}" >
-          Cart(
-          <span class="badge badge-light">{{ cart.length }}</span>)
-        </router-link>
-      </div>
-    </nav>
+          <router-link
+            class="nav-link"
+            tag="a"
+            v-for="routes in links"
+            v-bind:key="routes.id"
+            @click.native="closeMenu()"
+            :to="`${routes.page}`"
+          >{{routes.text}}</router-link>
+          <router-link @click.native="closeMenu()" class="cart nav-link" tag="a" :to="{name: 'checkout'}">
+            Cart(
+            <span class="badge badge-light">{{ cart.length }}</span>)
+          </router-link>
+        </div>
+      </nav>
+    </div>
   </div>
 </template>
 
@@ -100,14 +105,18 @@ export default {
     cart() {
       return this.$store.getters.getCart;
     }
-  }
+  },
+  methods: {
+            closeMenu() {
+                $('#navbarSupportedContent').collapse('hide');
+            }
+        }
+  
 };
 </script>
 
 <style>
-/* .dropdown-sideMenu {
-  transform: translateX(77%) !important;
-} */
+
 .icon {
   width: 80px;
   height: 64px;

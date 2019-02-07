@@ -3,6 +3,17 @@
     <div class="container-fluid" style="max-width:1750px">
       <Images></Images>
     </div>
+    <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <div class="carousel-inner" v-for="image in Images" :key="image['_id']">
+          <div class="carousel-item active">
+            <img class="d-block w-100" :img="image.image.secure_url" alt="First slide">
+          </div>
+        </div>
+    </div>-->
+
+    
+
     <div class="container">
       <div class="ourStory">
         <h3>Our Story</h3>
@@ -14,11 +25,11 @@
         >“Never wait till it is too late to give, that you regret even gifting one~....”</p>
       </div>
     </div>
-    <div class="container instaImgs">
+    <div class="container">
       <div class="row">
         <div class="col-md-4" v-for="(iImages, index) in instaImages" :key="index">
           <div class="card mb-4 shadow-sm">
-            <img :src="iImages" :key="index">
+            <img class="img-fluid" :src="iImages" :key="index">
           </div>
         </div>
       </div>
@@ -69,15 +80,5 @@ export default {
 
 .home h3 {
   font-family: "October Twilight";
-}
-
-.instaImgs {
-  display: flex;
-}
-
-.instaImgs > img {
-  width: 200px;
-  height: 15vh;
-  margin-left: 2px;
 }
 </style>

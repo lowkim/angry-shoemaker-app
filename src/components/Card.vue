@@ -1,5 +1,5 @@
 <template>
-  <div class="card" style="width:18rem">
+  <div class="card">
       <router-link tag="a" :to="{name: 'product', params: {id: product._id}}">
         <img class="card-img-top" :src="product.image.secure_url" :alt="product.title">
       </router-link>

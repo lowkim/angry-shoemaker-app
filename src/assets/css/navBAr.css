@@ -1,13 +1,11 @@
 .navBar{
     background-color: #7dcd85;
-    font-family: 'Caveat Brush', cursive;
+    font-family: 'Caveat', cursive;
+    /* border-bottom: 1px solid black; */
 }
 
 .navigationContent{
-    justify-content: start;
-}
-.navigationContent .cart{
-    align-self: flex-end
+    justify-content: space-between;
 }
 .dropdown a{
     color: black;
@@ -15,7 +13,7 @@
 }
 
 .nav-link{
-    color:white;
+    color:black;    
     font-size: 30px;
 }
 .nav-link:hover{

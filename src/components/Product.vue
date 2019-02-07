@@ -20,7 +20,7 @@
           <small class="mt-4">The limit is 10</small>
           <input v-model="quantity" type="number">
           <button
-            class="btn btn-primary mb-5"
+            class="btn btn-outline-primary mb-5"
             @click="addToCart(selected, quantity) , addToBasket()"
             :disabled="quantity > 10"
             v-if="!basketAddSuccess"
