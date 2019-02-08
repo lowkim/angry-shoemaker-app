@@ -116,10 +116,10 @@
               :class="['is-danger'? emptyError: '', 'input']"
               v-model="address.street"
               id="address"
-              placeholder="1234 Main St"
+              placeholder=""
               required
             >
-            <div class="invalid-feedback">Please enter your shipping address.</div>
+            <div class="invalid-feedback">Please enter your address.</div>
           </div>
 
           <div class="row">
@@ -141,6 +141,7 @@
             <div class="col-md-3 mb-3">
               <label for="unitNum">Unit Number</label>
               <input
+                maxlength="7"
                 type="text"
                 class="form-control"
                 :class="['is-danger'? emptyError: '', 'input']"
@@ -314,20 +315,20 @@ export default {
 
       stripeKey: key.PUBLISHABLE_KEY,
       // fields
-      name: "Meme",
-      email: "Memelord@gmail.com",
-      phone: "9954002",
+      name: "",
+      email: "",
+      phone: "",
       address: {
-        street: "Block 23 Chua Chu Kang",
-        postalCode: "844444",
-        unitNum: "#05-333"
+        street: "",
+        postalCode: "",
+        unitNum: ""
       },
 
       card: {
-        number: "4242424242424242",
-        cvc: "444",
-        exp_month: "8",
-        exp_year: "2020"
+        number: "",
+        cvc: "",
+        exp_month: "",
+        exp_year: ""
       },
 
       // validation
