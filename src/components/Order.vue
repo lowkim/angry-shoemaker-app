@@ -253,6 +253,7 @@
             type="submit"
             class="btn btn-primary btn-lg btn-block"
             @click.prevent="validate"
+            @click.exact="handleClick"
             :disabled="cardCheckSending || date==''"
           >
             <span v-if="cardCheckSending">
@@ -373,6 +374,10 @@ export default {
     }
   },
   methods: {
+    handleClick(lePath){
+      this.$router.push({path:lePath})
+    },
+
     validate() {
       this.clearCardErrors();
       let valid = true;
@@ -461,7 +466,9 @@ export default {
               this.cardCheckErrorMessage = errorResponse.message;
               console.error(errorResponse);
             } else {
-              this.$router.push({ path: `order-complete/${charge.id}` });
+              var path = `order-complete/${charge.id}`
+              // this.$router.push({ path: `order-complete/${charge.id}` });
+              this.handleClick(path)
               localStorage.clear();
               this.$store.state.charge = 0;
               this.$store.state.cart = [];

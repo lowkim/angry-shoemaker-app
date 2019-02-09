@@ -1,7 +1,7 @@
 <template>
   <div class="contactUs">
     <div class="container">
-      <form action="https://formspree.io/lowkim50@gmail.com" method="POST">
+      <form action="https://formspree.io/elves@thehappyelves.com" method="POST">
           <h1>Contact Us</h1>
         <div class="form-row">
           <div class="col-md-4 mb-3">

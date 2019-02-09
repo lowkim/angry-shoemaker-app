@@ -11,7 +11,7 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon">meme</span>
+          <img src="../../public/img/icons/iconfinder_menu-alt_134216.svg" alt="">
         </button>
         
         <div class="collapse navbar-collapse navigationContent" id="navbarSupportedContent">
