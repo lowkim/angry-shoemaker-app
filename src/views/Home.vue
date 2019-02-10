@@ -3,21 +3,11 @@
     <div class="container-fluid" style="max-width:1750px">
       <Images></Images>
     </div>
-    <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <div class="carousel-inner" v-for="image in Images" :key="image['_id']">
-          <div class="carousel-item active">
-            <img class="d-block w-100" :img="image.image.secure_url" alt="First slide">
-          </div>
-        </div>
-    </div>-->
-
-    
 
     <div class="container">
       <div class="ourStory">
         <h3>Our Story</h3>
-        <p>THE started with the story of giving mothers bouquet. Florist Elf decided to finally buy a bouquet to pamper the mother and aunties and sisters (who were mothers) despite them always nagging at how expensive it was, or what a waste of money.
+        <p style="font-family: 'Simonetta', cursive;">THE started with the story of giving mothers bouquet. Florist Elf decided to finally buy a bouquet to pamper the mother and aunties and sisters (who were mothers) despite them always nagging at how expensive it was, or what a waste of money.
           <br>But ever since that 1st time, she knows exactly how happy everyone was receiving the bouquet. and so, she decided to pursue floral art, and setting up this biz, hoping that more mothers and givers can receive the same joy she experienced back then.
         </p>
         <p
@@ -75,10 +65,30 @@ export default {
 
 .home p {
   font-family: "Gabriola";
-  font-size: 27px;
 }
 
 .home h3 {
   font-family: "October Twilight";
+}
+
+/* Small devices (landscape phones, 544px and up) */
+@media (min-width: 544px) {
+  .home p {
+    font-size: 15px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .home p {
+    font-size: 20px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .home p {
+    font-size: 27px;
+  }
 }
 </style>

@@ -56,4 +56,6 @@ export default {
 .deliveryInfo h2 {
   text-decoration: none;
 }
+
+
 </style>

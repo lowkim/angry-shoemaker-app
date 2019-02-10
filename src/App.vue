@@ -22,12 +22,8 @@ export default {
 
 <style>
 html, body {
-  height: 100; 
-}
-#app {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  height: 100%; 
+  width: 100%;
 }
 .Footer{
   flex-shrink: 0;

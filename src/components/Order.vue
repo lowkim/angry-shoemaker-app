@@ -316,20 +316,20 @@ export default {
 
       stripeKey: key.PUBLISHABLE_KEY,
       // fields
-      name: "",
-      email: "",
-      phone: "",
+      name: "meme",
+      email: "meme@gmail.com",
+      phone: "999999",
       address: {
-        street: "",
-        postalCode: "",
-        unitNum: ""
+        street: "Block 123",
+        postalCode: "600059",
+        unitNum: "#09-222"
       },
 
       card: {
-        number: "",
-        cvc: "",
-        exp_month: "",
-        exp_year: ""
+        number: "4242424242424242",
+        cvc: "123",
+        exp_month: "11",
+        exp_year: "2020"
       },
 
       // validation

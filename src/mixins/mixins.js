@@ -8,7 +8,8 @@ export default {
           title: product.title,
           price: product.price,
           subtotal: product.price * itemQty,
-          qty: itemQty
+          qty: itemQty,
+          image:product.image["secure_url"],
         };
         cart.push(item);
         this.$store.commit("setCart", item);
@@ -30,7 +31,8 @@ export default {
             title: product.title,
             price: product.price,
             subtotal: product.price * itemQty,
-            qty: itemQty
+            qty: itemQty,
+            image:product.image["secure_url"],
           };
           cart.push(item);
           this.$store.commit("setCart", item);

@@ -15,7 +15,7 @@
         </button>
         
         <div class="collapse navbar-collapse navigationContent" id="navbarSupportedContent">
-          <router-link tag="a" :to="{name:'home'}" class="navbar-brand">
+          <router-link @click.native="closeMenu()" tag="a" :to="{name:'home'}" class="navbar-brand">
             <img src="../../public/img/icons/FinalLogo.png" class="icon" alt="HappyElves">
           </router-link>
           <div class="dropdown">
