@@ -1,5 +1,8 @@
 <template>
 <div>
+    <div class="title">
+        <h1 style="text-align:center">{{subcategory}}</h1>
+    </div>
     <Cards :products="products"/>
 
 </div>

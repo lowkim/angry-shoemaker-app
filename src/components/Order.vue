@@ -253,7 +253,6 @@
             type="submit"
             class="btn btn-primary btn-lg btn-block"
             @click.prevent="validate"
-            @click.exact="handleClick"
             :disabled="cardCheckSending || date==''"
           >
             <span v-if="cardCheckSending">
@@ -279,6 +278,7 @@ export default {
   data() {
     return {
       //Date
+      self:this,
       date: "",
       monthNames: [
         "January",
@@ -374,9 +374,6 @@ export default {
     }
   },
   methods: {
-    handleClick(lePath){
-      this.$router.push({path:lePath})
-    },
 
     validate() {
       this.clearCardErrors();
@@ -458,17 +455,16 @@ export default {
         Api()
           .post(`/charge`, request)
           .then(res => {
-            this.cardCheckSending = false;
             var errorResponse = res.data.error;
             var charge = res.data.charge;
             if (errorResponse) {
               this.cardCheckError = true;
               this.cardCheckErrorMessage = errorResponse.message;
+              this.cardCheckSending = false;
               console.error(errorResponse);
             } else {
-              var path = `order-complete/${charge.id}`
-              // this.$router.push({ path: `order-complete/${charge.id}` });
-              this.handleClick(path)
+              this.self.$router.push({ path: `order-complete/${charge.id}` });
+              this.cardCheckSending = false;
               localStorage.clear();
               this.$store.state.charge = 0;
               this.$store.state.cart = [];

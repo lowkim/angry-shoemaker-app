@@ -11,9 +11,9 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <img src="../../public/img/icons/iconfinder_menu-alt_134216.svg" alt="">
+          <img src="../../public/img/icons/iconfinder_menu-alt_134216.svg" alt>
         </button>
-        
+
         <div class="collapse navbar-collapse navigationContent" id="navbarSupportedContent">
           <router-link @click.native="closeMenu()" tag="a" :to="{name:'home'}" class="navbar-brand">
             <img src="../../public/img/icons/FinalLogo.png" class="icon" alt="HappyElves">
@@ -67,7 +67,12 @@
             @click.native="closeMenu()"
             :to="`${routes.page}`"
           >{{routes.text}}</router-link>
-          <router-link @click.native="closeMenu()" class="cart nav-link" tag="a" :to="{name: 'checkout'}">
+          <router-link
+            @click.native="closeMenu()"
+            class="cart nav-link"
+            tag="a"
+            :to="{name: 'checkout'}"
+          >
             Cart(
             <span class="badge badge-light">{{ cart.length }}</span>)
           </router-link>
@@ -107,16 +112,14 @@ export default {
     }
   },
   methods: {
-            closeMenu() {
-                $('#navbarSupportedContent').collapse('hide');
-            }
-        }
-  
+    closeMenu() {
+      $("#navbarSupportedContent").collapse("hide");
+    }
+  }
 };
 </script>
 
 <style>
-
 .icon {
   width: 80px;
   height: 64px;
