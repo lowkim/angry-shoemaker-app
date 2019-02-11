@@ -1,6 +1,6 @@
 export default {
   methods: {
-    addToCart(product, itemQty) {
+    addToCart(product, itemQty, imageUrl) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       if (cart.length === 0) {
         let item = {
@@ -9,7 +9,8 @@ export default {
           price: product.price,
           subtotal: product.price * itemQty,
           qty: itemQty,
-          image:product.image["secure_url"],
+          // image:product.image["secure_url"],
+          image:imageUrl
         };
         cart.push(item);
         this.$store.commit("setCart", item);
@@ -32,7 +33,7 @@ export default {
             price: product.price,
             subtotal: product.price * itemQty,
             qty: itemQty,
-            image:product.image["secure_url"],
+            image:imageUrl
           };
           cart.push(item);
           this.$store.commit("setCart", item);

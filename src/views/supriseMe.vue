@@ -32,7 +32,7 @@
               :disabled="selectedOption == '' || quantity > 10"
               class="btn btn-outline-primary mb-5 mt-2"
               v-if="!basketAddSuccess"
-              @click="addToCart(selectedOption,quantity), clearItems()"
+              @click="addToCart(selectedOption,quantity,selectedOption.image['secure_url']), clearItems()"
             >Add to Cart</button>
             <button class="btn btn-success mb-5 mt-2" v-else>Added</button>
           </div>

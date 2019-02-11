@@ -21,7 +21,7 @@
           <input v-model="quantity" type="number">
           <button
             class="btn btn-outline-primary mb-5"
-            @click="addToCart(selected, quantity) , addToBasket()"
+            @click="addToCart(selected, quantity, product.image['secure_url']) , addToBasket()"
             :disabled="quantity > 10"
             v-if="!basketAddSuccess"
           >Add to Cart</button>

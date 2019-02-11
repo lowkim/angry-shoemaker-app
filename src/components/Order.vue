@@ -278,7 +278,6 @@ export default {
   data() {
     return {
       //Date
-      self:this,
       date: "",
       monthNames: [
         "January",
@@ -450,21 +449,22 @@ export default {
           orderDate: this.date,
           orderTime:this.selected.time
         };
-        console.log(this.deliveryPrice)
         // Send to our server
         Api()
           .post(`/charge`, request)
           .then(res => {
             var errorResponse = res.data.error;
-              this.cardCheckSending = false;
+            this.cardCheckSending = false;
             var charge = res.data.charge;
+            console.log("Thi is outside")
+            console.log(res.data.error)
             if (errorResponse) {
               this.cardCheckError = true;
               this.cardCheckErrorMessage = errorResponse.message;
-              // this.cardCheckSending = false;
+              console.error("LE ERROR")
               console.error(errorResponse);
             } else {
-              this.self.$router.push({ path: `order-complete/${charge.id}` });
+              this.$router.push({ path: `order-complete/${charge.id}` });
               localStorage.clear();
               this.$store.state.charge = 0;
               this.$store.state.cart = [];
