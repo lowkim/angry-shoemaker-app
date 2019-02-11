@@ -456,15 +456,15 @@ export default {
           .post(`/charge`, request)
           .then(res => {
             var errorResponse = res.data.error;
+              this.cardCheckSending = false;
             var charge = res.data.charge;
             if (errorResponse) {
               this.cardCheckError = true;
               this.cardCheckErrorMessage = errorResponse.message;
-              this.cardCheckSending = false;
+              // this.cardCheckSending = false;
               console.error(errorResponse);
             } else {
               this.self.$router.push({ path: `order-complete/${charge.id}` });
-              this.cardCheckSending = false;
               localStorage.clear();
               this.$store.state.charge = 0;
               this.$store.state.cart = [];

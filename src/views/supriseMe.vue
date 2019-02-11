@@ -8,7 +8,7 @@
           <h3>{{prod.title}}</h3>
           <p v-html="prod.description"></p>
 
-          <select @click="alterItem">
+          <select @change="alterItem" >
             <option value="nothing">Yes! This is the one</option>
             <option v-bind:value="JSON.stringify(prod)">{{prod.title}}</option>
             <option
