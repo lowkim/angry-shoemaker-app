@@ -15,9 +15,12 @@
         </button>
 
         <div class="collapse navbar-collapse navigationContent" id="navbarSupportedContent">
-          <router-link @click.native="closeMenu()" tag="a" :to="{name:'home'}" class="navbar-brand">
+          <!-- <router-link @click.native="closeMenu()" tag="a" :to="{name:'home'}" class="navbar-brand">
             <img src="../../public/img/icons/FinalLogo.png" class="icon" alt="HappyElves">
-          </router-link>
+          </router-link> -->
+          <a @click.native="closeMenu()" href="/" class="navbar-brand">
+            <img src="../../public/img/icons/FinalLogo.png" class="icon" alt="HappyElves">
+          </a>
           <div class="dropdown">
             <a
               class="btn dropdown-toggle"

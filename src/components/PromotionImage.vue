@@ -6,12 +6,16 @@
       data-ride="carousel"
       data-interval="2000"
     >
+
       <ol class="carousel-indicators">
-        <li v-for="(image,index) in Images" :key="index" :class="{active:index==0}" data-target="#carouselExampleIndicators" :data-slide-to="index" ></li>
+        <li v-for="(image,index) in Images" :key="index" :class="{active:index==0}" data-target="#carouselExampleIndicators" :data-slide-to="index" >
+          
+        </li>
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item" :key="index" v-for="(image, index) in Images" :class="{active:index==0}">
-          <img class="d-block img-fluid" :src="image.image.secure_url">
+          <a :href="'category/' + image.subCategory.category.name + '/' + image.subCategory.name" ><img class="d-block img-fluid" :src="image.image.secure_url"></a>
+          <!-- <router-link :to="'category/' + image.subCategory.category.name + '/' + image.subCategory.name" ><img class="d-block img-fluid" :src="image.image.secure_url"></router-link> -->
         </div>
       </div>
     </div>
