@@ -1,7 +1,7 @@
 <template>
   <div class="card">
       <router-link tag="a" :to="{name: 'product', params: {id: product._id}}">
-        <img class="card-img-top" :src="product.image.secure_url" :alt="product.title">
+        <img class="card-img-top" :src="product.image[0]['secure_url']" :alt="product.title">
       </router-link>
     <div class="card-body cardbod">
       <h3 class="card-title">{{ product.title }}</h3>

@@ -97,7 +97,7 @@ export default {
         { id: 0, text: "Surprise me", page: "/supriseme" },
         { id: 1, text: "Delivery Info", page: "/deliveryinfo" },
         { id: 2, text: "FAQs", page: "/faq" },
-        // { id: 3, text: "Our Story", page: "/ourstory" },
+        { id: 3, text: "Our Story", page: "/ourstory" },
         { id: 4, text: "Contact Us", page: "/contactus" }
       ]
     };

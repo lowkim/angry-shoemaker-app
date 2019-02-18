@@ -2,7 +2,12 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <img :src="product.image.secure_url" :alt="product.title" class="img-fluid">
+        <ProductZoomer
+          style="width:500px"
+          v-if="is_data_fetched"
+          :base-images="images"
+          :base-zoomer-options="zoomerOptions"
+        />
       </div>
       <div class="col-md-4">
         <h1>{{ product.title }}</h1>
@@ -42,24 +47,32 @@ export default {
   data() {
     return {
       selected: {},
-      quantity:1,
+      quantity: 1,
       basketAddSuccess: false,
+      is_data_fetched: false,
+      images: {
+        normal_size: []
+      },
       product: {},
       //before rendering the image, set a default placeholder
       product: {
         image: {
           secure_url: ""
         }
+      },
+      zoomerOptions: {
+        zoomFactor: 3,
+        pane: "container-round",
+        hoverDelay: 300,
+        namespace: "inline-zoomer",
+        move_by_click: true,
+        scroll_items: 5,
+        choosed_thumb_border_color: "#bbdefb"
       }
     };
   },
   mounted() {
-    Api()
-      .get(`/product/${this.id}`)
-      .then(response => {
-        this.product = response.data;
-        this.selected = response.data;
-      });
+    this.getData();
   },
   methods: {
     addToBasket() {
@@ -68,6 +81,23 @@ export default {
       setTimeout(function() {
         self.basketAddSuccess = false;
       }, 1000);
+    },
+
+    getData() {
+      Api()
+        .get(`/product/${this.id}`)
+        .then(response => {
+          response.data.image.forEach(x => {
+            this.images["normal_size"].push({
+              url: x["secure_url"],
+              id: x["public_id"]
+            });
+          });
+
+          this.product = response.data;
+          this.selected = response.data;
+          this.is_data_fetched = true;
+        });
     }
   }
 };
@@ -79,11 +109,46 @@ export default {
   flex-direction: column;
 }
 
-.prodCheckout > button{
+.prodCheckout > button {
   margin-top: 20px;
 }
 
 .prodDetails > p {
   font-size: 1.5rem;
+}
+
+#app
+  > div.content
+  > div
+  > div
+  > div.col-md-8
+  > div
+  > div.control-box
+  > div.thumb-list {
+  width: 100px;
+}
+
+#app
+  > div.content
+  > div
+  > div
+  > div.col-md-8
+  > div
+  > div.control-box
+  > div.control {
+  visibility: hidden;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 415px) {
+  /* Styles */
+  #app > div.content > div > div > div.col-md-8 {
+    display: flex;
+    justify-content: center;
+  }
+
+  #app > div.content > div > div > div.col-md-8 > div > div.preview-box {
+    width: 360px;
+  }
 }
 </style>

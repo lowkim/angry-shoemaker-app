@@ -3,7 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
+import ProductZoomer from 'vue-product-zoomer'
 
+Vue.use(ProductZoomer)
 Vue.config.productionTip = false;
 
 new Vue({
